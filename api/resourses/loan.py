@@ -2,7 +2,7 @@ from api.models.client import ClientModel
 from api.models.loan import LoanModel
 from api import Resource, abort
 from flask import request
-from api.schemas.loan import loan_schema, loan_schemas
+from api.schemas.loan import loan_schema
 
 
 class LoanResource(Resource):
@@ -14,7 +14,6 @@ class LoanResource(Resource):
         loan = LoanModel(client_id=client.id, **request.json)
         loan.save()
         return loan_schema.dump(loan), 201
-
 
     def delete(self, client_id, loan_id):
         client = ClientModel.query.get(client_id)

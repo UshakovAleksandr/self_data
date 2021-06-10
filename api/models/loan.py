@@ -6,9 +6,10 @@ class LoanModel(db.Model):
     __tablename__ = 'loans'
     id = db.Column(db.Integer, primary_key=True)
     client_id = db.Column(db.Integer, db.ForeignKey(ClientModel.id))
+    loan_sum = db.Column(db.Integer, unique=False)
     payment_rest = db.Column(db.Integer, unique=False)
     payment_rep_month = db.Column(db.Integer, unique=False)
-    loans_active = db.Column(db.Boolean(), default=True, nullable=False)
+    loan_active = db.Column(db.Boolean(), default=True, nullable=False)
     loan_delinquency = db.Column(db.Boolean(), default=False, nullable=False)
 
     def save(self):
