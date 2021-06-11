@@ -1,12 +1,13 @@
 from api.models.client import ClientModel
 from api.models.loan import LoanModel
-from api import Resource, abort
+from api import Resource, abort, app
 from flask import request
 from api.schemas.loan import loan_schema
 
 
 class LoanResource(Resource):
 
+    @app.validate("loan", "loan")
     def post(self, client_id):
         client = ClientModel.query.get(client_id)
         if not client:

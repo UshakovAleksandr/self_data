@@ -1,5 +1,5 @@
 from api.models.client import ClientModel
-from api import Resource, abort
+from api import Resource, abort, app
 from api.schemas.client import client_schema, client_schemas
 from flask import request
 
@@ -38,6 +38,7 @@ class ClientResourceList(Resource):
             abort(404, error=f"No clients yet")
         return client_schemas.dump(clients), 200
 
+    @app.validate("client", "client")
     def post(self):
         client = ClientModel(**request.json)
         try:

@@ -1,0 +1,33 @@
+{
+    "client": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "surname": {
+                "type": "string"
+            },
+            "email": {
+                "type": "string"
+            },
+            "marital_status": {
+                "type": "string"
+            },
+            "children": {
+                "type": "integer"
+            },
+            "income": {
+                "type": "integer"
+            }
+        },
+        "required": [
+            "name",
+            "surname",
+            "email",
+            "marital_status",
+            "children",
+            "income"
+        ]
+    }
+}

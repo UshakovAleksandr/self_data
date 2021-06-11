@@ -1,0 +1,21 @@
+{
+    "loan": {
+        "type": "object",
+        "properties": {
+            "loan_sum": {
+                "type": "integer"
+            },
+            "payment_rest": {
+                "type": "integer"
+            },
+            "payment_rep_month": {
+                "type": "integer"
+            }
+        },
+        "required": [
+            "loan_sum",
+            "payment_rest",
+            "payment_rep_month"
+        ]
+    }
+}

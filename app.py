@@ -2,6 +2,7 @@ from api import app, api
 from config import Config
 from api.resourses.loan import LoanResource
 from api.resourses.client import ClientResourceList, ClientResource, ClientResponseResource
+from api.schemas.error.error import validation_error
 
 api.add_resource(ClientResourceList, "/client")
 api.add_resource(ClientResource, "/client/<int:client_id>")
