@@ -1,0 +1,15 @@
+{
+    "request": {
+        "type": "object",
+        "properties": {
+            "email": {
+                "type": "string",
+                "minLength": 5,
+                "maxLength": 120
+            }
+        },
+        "required": [
+            "email"
+        ]
+    }
+}

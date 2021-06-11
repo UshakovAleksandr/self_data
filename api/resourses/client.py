@@ -6,45 +6,56 @@ from flask import request
 
 class ClientResponseResource(Resource):
 
+    @app.validate("client_request", "request")
     def get(self):
-        email = request.json["email"]
-        client = ClientModel.query.filter_by(email=email).first()
-        if not client:
-            abort(404, error=f"No client")
+        try:
+            email = request.json["email"]
+            client = ClientModel.query.filter_by(email=email).first()
+            if not client:
+                return f"Client not found in 'self_data' service"
+        except Exception as e:
+            return {"message": str(e)}, 400
         return client_schema.dump(client), 200
 
 
 class ClientResource(Resource):
 
     def get(self, client_id):
-        client = ClientModel.query.get(client_id)
-        if not client:
-            abort(404, error=f"No client with id={client_id}")
+        try:
+            client = ClientModel.query.get(client_id)
+            if not client:
+                return f"No client with id={client_id}", 404
+        except Exception as e:
+            return {"message": str(e)}, 400
         return client_schema.dump(client), 200
 
     def delete(self, client_id):
-        client = ClientModel.query.get(client_id)
-        if not client:
-            abort(404, error=f"No client with id={client_id}")
-        client.delete()
+        try:
+            client = ClientModel.query.get(client_id)
+            if not client:
+                return f"No client with id={client_id}", 404
+            client.delete()
+        except Exception as e:
+            return {"message": str(e)}, 400
         return f"User with id={client_id} deleted", 200
 
 
 class ClientResourceList(Resource):
 
     def get(self):
-        clients = ClientModel.query.all()
-        if not clients:
-            abort(404, error=f"No clients yet")
+        try:
+            clients = ClientModel.query.all()
+            if not clients:
+                return f"No clients yet", 404
+        except Exception as e:
+            return {"message": str(e)}, 400
         return client_schemas.dump(clients), 200
 
     @app.validate("client", "client")
     def post(self):
-        client = ClientModel(**request.json)
         try:
+            client = ClientModel(**request.json)
             client.save()
-            return client_schema.dump(client), 201
-        except:
-            abort(404, error=f"An error occurred while adding new client" \
-                             "or a client with such email is already exist. " \
-                             "You can only add a client with unique email")
+        except Exception as e:
+            return {"message": str(e)}, 400
+        return client_schema.dump(client), 201
