@@ -12,7 +12,7 @@ class ClientResponseResource(Resource):
             email = request.json["email"]
             client = ClientModel.query.filter_by(email=email).first()
             if not client:
-                return f"Client not found in 'self_data' service"
+                return f"Client not found in 'self_data' service", 404
         except Exception as e:
             return {"message": str(e)}, 400
         return client_schema.dump(client), 200
