@@ -1,8 +1,8 @@
-"""db init
+"""empty message
 
-Revision ID: d668eebe90d9
+Revision ID: db2dc739dcee
 Revises: 
-Create Date: 2021-06-08 16:17:00.432133
+Create Date: 2021-07-07 10:03:20.955034
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd668eebe90d9'
+revision = 'db2dc739dcee'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,9 +33,10 @@ def upgrade():
     op.create_table('loans',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('client_id', sa.Integer(), nullable=True),
+    sa.Column('loan_sum', sa.Integer(), nullable=True),
     sa.Column('payment_rest', sa.Integer(), nullable=True),
     sa.Column('payment_rep_month', sa.Integer(), nullable=True),
-    sa.Column('loans_active', sa.Boolean(), nullable=False),
+    sa.Column('loan_active', sa.Boolean(), nullable=False),
     sa.Column('loan_delinquency', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['client_id'], ['client.id'], ),
     sa.PrimaryKeyConstraint('id')
